@@ -12,6 +12,8 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.sql.Connection;
+
 
 public class LoginScreen extends AppCompatActivity {
     private Button b1,b2;
@@ -19,6 +21,7 @@ public class LoginScreen extends AppCompatActivity {
     private CheckBox rememberMe;
     private boolean saveLogin;
     private SharedPreferences loginPreferences;
+    ConnectionClass connectionClass;
 
     private int counter = 3;
 
@@ -27,6 +30,7 @@ public class LoginScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        connectionClass = new ConnectionClass();
         b1 = (Button)findViewById(R.id.button);
         ed1 = (EditText)findViewById(R.id.editText);
         ed2 = (EditText)findViewById(R.id.editText2);
