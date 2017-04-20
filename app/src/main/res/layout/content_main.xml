@@ -58,9 +58,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Exit"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/checkBox"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="24dp" />
+        android:layout_marginTop="31dp" />
 
     <CheckBox
         android:id="@+id/checkBox"
