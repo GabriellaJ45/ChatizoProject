@@ -45,13 +45,27 @@ public class LoginScreen extends AppCompatActivity {
 */
         b2 = (Button)findViewById(R.id.button2);
 
+        try {
+            Connection con = connectionClass.CONN();
+            if (con == null) {
+                Toast.makeText(getApplicationContext(), "Connection failed",Toast.LENGTH_SHORT).show();
+            } else{
+                Toast.makeText(getApplicationContext(), "Connection Passed!!",Toast.LENGTH_SHORT).show();
+            }
+        } catch (Exception ex){
+            Toast.makeText(getApplicationContext(), "Connection failed 2",Toast.LENGTH_SHORT).show();
+        }
+
+
+
+
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(ed1.getText().toString().equals("Chatizo") &&
                         ed2.getText().toString().equals("chatizo")) {
                     Toast.makeText(getApplicationContext(), "Redirecting...",Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(LoginScreen.this, DefaultScreen.class);
+                    Intent intent = new Intent(LoginScreen.this, MessagesScreen.class);
                     startActivity(intent);
                 }else{
                     Toast.makeText(getApplicationContext(), "Invalid Username or Password",Toast.LENGTH_SHORT).show();

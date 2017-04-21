@@ -39,7 +39,9 @@ public class ConnectionClass {
         return conn;
     }
 
-    public boolean verifyUser(int username, String password){
+    public boolean verifyUser(String username, String password){
         return true;
     }
+
+
 }
