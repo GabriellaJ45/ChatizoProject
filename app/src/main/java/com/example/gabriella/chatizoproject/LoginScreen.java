@@ -67,6 +67,7 @@ public class LoginScreen extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Redirecting...",Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(LoginScreen.this, AfterLoginController.class);
                     startActivity(intent);
+                    finish();
                 }else{
                     Toast.makeText(getApplicationContext(), "Invalid Username or Password",Toast.LENGTH_SHORT).show();
                     counter--;
