@@ -14,21 +14,21 @@ import java.sql.SQLException;
 
 public class ConnectionClass {
     private String ip = "138.197.83.20";
-    private String classs = "net.sourceforge.jtds.jdbc.Driver";
+    private String classs = "com.mysql.jdbc.Driver";
     private String db = "chatizo";
     private String un = "root";
     private String password = "chatizo2017";
 
-    @SuppressLint("NewApi")
+    //@SuppressLint("NewApi")
     public Connection CONN(){
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
+        //StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        //StrictMode.setThreadPolicy(policy);
         Connection conn = null;
-        String ConnURL = null;
+        //String ConnURL = null;
         try{
-            Class.forName(classs);
-            ConnURL = "jdbc:jtds:sqlserver://" + ip + ";" + "databaseName=" + db + ";user=" + un + ";password" + password + ";";
-            conn = DriverManager.getConnection(ConnURL);
+            Class.forName("com.mysql.jdbc.Driver");
+            //ConnURL = "jdbc:mysql://" + ip + ";" + "databaseName=" + db + ";user=" + un + ";password" + password + ";";
+            conn = DriverManager.getConnection("jdbc:mysql://138.197.83.20:22/chatizo","root","chatizo2017");
         } catch (SQLException se){
             Log.e("ERRO", se.getMessage());
         } catch (ClassNotFoundException e){

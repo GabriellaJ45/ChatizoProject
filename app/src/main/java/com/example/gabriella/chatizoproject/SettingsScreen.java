@@ -1,14 +1,19 @@
 package com.example.gabriella.chatizoproject;
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class MessagesScreen extends Fragment {
-    public static MessagesScreen newInstance() {
-        MessagesScreen frag = new MessagesScreen();
+
+/**
+ * Created by yungbena on 4/23/17.
+ */
+
+public class SettingsScreen extends Fragment {
+    public static SettingsScreen newInstance() {
+        SettingsScreen frag = new SettingsScreen();
         return frag;
     }
 
@@ -20,6 +25,6 @@ public class MessagesScreen extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.activity_messages_screen, container, false);
+        return inflater.inflate(R.layout.activity_settings_screen, container, false);
     }
 }

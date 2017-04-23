@@ -16,12 +16,30 @@
 
     </FrameLayout>
 
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/navigation"
+    <RelativeLayout
         android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <EditText
+        android:id="@+id/editText4"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:ems="10"
+        android:paddingBottom="10dp"
+        android:inputType="textMultiLine"
+        android:hint="Enter Message"/>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:background="?android:attr/windowBackground"
-        app:menu="@menu/navigation" />
+        android:layout_alignBaseline="@+id/editText4"
+        android:layout_alignBottom="@+id/editText4"
+        android:layout_alignParentEnd="true"
+        android:text="send"
+        />
+
+    </RelativeLayout>
+
+
 
 </LinearLayout>

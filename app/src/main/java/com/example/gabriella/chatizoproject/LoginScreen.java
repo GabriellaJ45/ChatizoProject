@@ -65,7 +65,7 @@ public class LoginScreen extends AppCompatActivity {
                 if(ed1.getText().toString().equals("Chatizo") &&
                         ed2.getText().toString().equals("chatizo")) {
                     Toast.makeText(getApplicationContext(), "Redirecting...",Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(LoginScreen.this, MessagesScreen.class);
+                    Intent intent = new Intent(LoginScreen.this, AfterLoginController.class);
                     startActivity(intent);
                 }else{
                     Toast.makeText(getApplicationContext(), "Invalid Username or Password",Toast.LENGTH_SHORT).show();
