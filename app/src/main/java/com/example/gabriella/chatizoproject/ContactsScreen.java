@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -21,6 +22,9 @@ public class ContactsScreen extends Fragment {
     private FloatingActionButton b1;
     private String m_Text,n_text;
     private ArrayList<Contact> contacts_list;
+    private int i = 0;
+    private TextView tv;
+    private Contact cntact;
 
     public static ContactsScreen newInstance() {
         ContactsScreen frag = new ContactsScreen();
@@ -36,6 +40,8 @@ public class ContactsScreen extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootview = inflater.inflate(R.layout.activity_contacts_screen, container, false);
+        tv = (TextView)rootview.findViewById(R.id.text1);
+        contacts_list = new ArrayList<>();
 
         b1 = (FloatingActionButton)rootview.findViewById(R.id.fab);
         b1.setOnClickListener(new View.OnClickListener() {
@@ -66,7 +72,12 @@ public class ContactsScreen extends Fragment {
                                 } else {
                                     m_Text = titleBox.getText().toString();
                                     n_text = descriptionBox.getText().toString();
-                                    //contacts_list.add(new Contact(m_Text,n_text));
+                                    cntact = new Contact(m_Text,n_text);
+                                    contacts_list.add(cntact);
+                                    if(contacts_list.size() > 0){
+                                        tv.append("\n");
+                                    }
+                                    tv.append("ID: " + cntact.getId1() + " Nickname: " + cntact.getNickname1());
                                 }
                             }
                         }).setNegativeButton("Cancel",
