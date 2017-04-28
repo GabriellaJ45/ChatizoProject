@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
@@ -26,14 +26,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<!--        <activity
+        <!--
+            <activity
             android:name=".MessagesScreen"
             android:label="Chatizo" />
         <activity android:name=".ContactsScreen"
-                android:label ="Contacts"/>-->
-        <activity android:name=".AfterLoginController"
-            android:label="AfterLogin"/>
-
+                android:label ="Contacts"/>
+        -->
+        <activity
+            android:name=".AfterLoginController"
+            android:label="AfterLogin" />
+        <activity android:name=".MainActivity"></activity>
     </application>
 
 </manifest>
