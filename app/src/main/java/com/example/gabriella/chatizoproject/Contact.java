@@ -28,4 +28,11 @@ public class Contact {
     public void setNickname1(String nickname1) {
         this.nickname1 = nickname1;
     }
+
+    @Override
+    public String toString() {
+        if(getNickname1().equals(""))
+            return getId1();
+        return this.nickname1;
+    }
 }

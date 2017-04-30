@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 public class MessagesScreen extends Fragment {
+
+
     public static MessagesScreen newInstance() {
         MessagesScreen frag = new MessagesScreen();
         return frag;

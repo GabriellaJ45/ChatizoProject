@@ -36,6 +36,7 @@ public class SettingsScreen extends Fragment {
                              Bundle savedInstanceState) {
         View rootview = inflater.inflate(R.layout.activity_settings_screen, container, false);
 
+        //set language button
         b1 =(Button)rootview.findViewById(R.id.button);
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,6 +73,7 @@ public class SettingsScreen extends Fragment {
             }
         });
 
+        //change theme button
         b2 =(Button)rootview.findViewById(R.id.button2);
         b2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,6 +120,7 @@ public class SettingsScreen extends Fragment {
             }
         });
 
+        //set default security button
         b4 =(Button)rootview.findViewById(R.id.button4);
         b4.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,6 +155,7 @@ public class SettingsScreen extends Fragment {
             }
         });
 
+        //Logout button
         b5 =(Button)rootview.findViewById(R.id.button5);
         b5.setOnClickListener(new View.OnClickListener() {
             @Override

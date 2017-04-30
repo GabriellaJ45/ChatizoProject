@@ -67,7 +67,8 @@ public class LoginScreen extends AppCompatActivity {
 
 
 
-
+        //Login button
+        //This is where we must validate account credentials
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,6 +88,7 @@ public class LoginScreen extends AppCompatActivity {
             }
         });
 
+        //Exit button
         b2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
