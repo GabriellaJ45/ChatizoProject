@@ -1,6 +1,27 @@
 package com.example.gabriella.chatizoproject;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
+
+import android.net.Uri;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import android.app.Activity;
+import android.os.AsyncTask;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -23,9 +44,11 @@ import com.example.gabriella.chatizoproject.webservices.webServiceUtils;
 import com.example.gabriella.chatizoproject.data.User;
 
 public class LoginScreen extends AppCompatActivity {
-   // private UserLoginRegisterTask mUserLoginRegisterTask = null;
-    private Button login, exit, b1,b2;
-    private EditText usernameView, passwordView, ed1,ed2;
+    // private UserLoginRegisterTask mUserLoginRegisterTask = null;
+    public static final int CONNECTION_TIMEOUT = 10000;
+    public static final int READ_TIMEOUT = 15000;
+    private Button login, exit, b1, b2;
+    private EditText usernameView, passwordView, ed1, ed2;
     private CheckBox rememberMe;
     private boolean saveLogin;
     private SharedPreferences loginPreferences;
@@ -37,180 +60,153 @@ public class LoginScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-   //     initViews();
 
         connectionClass = new ConnectionClass();
-        b1 = (Button)findViewById(R.id.button);
-        ed1 = (EditText)findViewById(R.id.editText);
-        ed2 = (EditText)findViewById(R.id.editText2);
-        rememberMe = (CheckBox)findViewById(R.id.checkBox);
-/*
-        saveLogin = loginPreferences.getBoolean("saveLogin", false);
-        if (saveLogin == true) {
-            ed1.setText(loginPreferences.getString("username", ""));
-            ed2.setText(loginPreferences.getString("password", ""));
-            rememberMe.setChecked(true);
-        }
-*/
-        b2 = (Button)findViewById(R.id.button2);
-
-        try {
-            Connection con = connectionClass.CONN();
-            if (con == null) {
-                Toast.makeText(getApplicationContext(), "Connection failed",Toast.LENGTH_SHORT).show();
-            } else{
-                Toast.makeText(getApplicationContext(), "Connection Passed!!",Toast.LENGTH_SHORT).show();
-            }
-        } catch (Exception ex){
-            Toast.makeText(getApplicationContext(), "Connection failed 2",Toast.LENGTH_SHORT).show();
-        }
-
-
-
-
-        b1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(ed1.getText().toString().equals("Chatizo") &&
-                        ed2.getText().toString().equals("chatizo")) {
-                    Toast.makeText(getApplicationContext(), "Redirecting...",Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(LoginScreen.this, AfterLoginController.class);
-                    startActivity(intent);
-                    finish();
-                }else{
-                    Toast.makeText(getApplicationContext(), "Invalid Username or Password",Toast.LENGTH_SHORT).show();
-                    counter--;
-                    if (counter == 0) {
-                        b1.setEnabled(false);
-                    }
-                }
-            }
-        });
-
-        b2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
-    }
-/*
-    }
-    public void initViews() {
-        login = (Button) findViewById(R.id.button);
-        exit = (Button) findViewById(R.id.button2);
+        b1 = (Button) findViewById(R.id.button);
         usernameView = (EditText) findViewById(R.id.editText);
         passwordView = (EditText) findViewById(R.id.editText2);
         rememberMe = (CheckBox) findViewById(R.id.checkBox);
+        b2 = (Button) findViewById(R.id.button2);
+
+    }
+    public void checkExit(View arg0){
+        finish();
+    }
+    public void checkLogin(View arg0) {
+
+        // Get text from email and passord field
+        final String email = usernameView.getText().toString();
+        final String password = passwordView.getText().toString();
+
+        // Initialize  AsyncLogin() class with email and password
+        new AsyncLogin().execute(email, password);
+
     }
 
-    public void attemptLoginRegister(View view) {
-        if (mUserLoginRegisterTask != null) {
-            return;
-        }
+    private class AsyncLogin extends AsyncTask<String, String, String> {
+        ProgressDialog pdLoading = new ProgressDialog(LoginScreen.this);
+        HttpURLConnection conn;
+        URL url = null;
 
-        usernameView.setError(null);
-        passwordView.setError(null);
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
 
-        String username = usernameView.getText().toString();
-        String password = passwordView.getText().toString();
+            //this method will be running on UI thread
+            pdLoading.setMessage("\tLoading...");
+            pdLoading.setCancelable(false);
+            pdLoading.show();
 
-        boolean cancel = false;
-        View focusView = null;
-
-        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
-            passwordView.setError(getString(R.string.error_password_length));
-            focusView = passwordView;
-            cancel = true;
-        }
-
-        if (!TextUtils.isEmpty(username)) {
-            usernameView.setError(getString(R.string.error_field_required));
-            focusView = usernameView;
-            cancel = true;
-        } else if (!isUsernameValid(username)) {
-            usernameView.setError(getString(R.string.error_invalid_email));
-            focusView = usernameView;
-            cancel = true;
-        }
-
-        if (cancel) {
-            focusView.requestFocus();
-        } else {
-            mUserLoginRegisterTask = new UserLoginRegisterTask(username, password, view.getId() == R.id.button);
-            mUserLoginRegisterTask.execute((Void) null);
-        }
-    }
-
-    private boolean isPasswordValid(String password) {
-        return password.length() > 4;
-    }
-
-    private boolean isUsernameValid(String username) {
-        return Patterns.EMAIL_ADDRESS.matcher(username).matches();
-    }
-
-    private void showProgress(final boolean isShow) {
-        // findViewById(R.id.login_progress).setVisibility(isShow ? View.VISIBLE : View.GONE);
-        //findViewById(R.id.login_form).setVisibility(isShow ? View.GONE : View.VISIBLE);
-    }
-
-    private class UserLoginRegisterTask extends webServiceTask {
-        private final ContentValues contentValues = new ContentValues();
-        private boolean mIsLogin;
-
-        UserLoginRegisterTask(String username, String password, boolean isLogin) {
-            super(LoginScreen.this);
-            contentValues.put(Constants.USERNAME, username);
-            contentValues.put(Constants.PASSWORD, password);
-            contentValues.put(Constants.GRANT_TYPE, Constants.CLIENT_CREDENTIALS);
-            mIsLogin = isLogin;
         }
 
         @Override
-        public void showProgress() {
-            LoginScreen.this.showProgress(true);
-        }
+        protected String doInBackground(String... params) {
+            try {
 
-        @Override
-        public void hideProgress() {
-            LoginScreen.this.showProgress(false);
-        }
+                // Enter URL address where your php file resides
+                url = new URL("http://138.197.83.20/login.inc.php");
 
-        @Override
-        public boolean performRequest() {
-            JSONObject obj = webServiceUtils.requestJSONObject(mIsLogin ? Constants.LOGIN_URL : Constants.SIGNUP_URL,
-                    webServiceUtils.METHOD.POST, contentValues, true);
-            mUserLoginRegisterTask = null;
-            if (!hasError(obj)) {
-                if (mIsLogin) {
-                    User user = new User();
-                    user.setId(obj.optLong(Constants.ID));
-                    user.setUsername(contentValues.getAsString(Constants.USERNAME));
-                    user.setPassword(contentValues.getAsString(Constants.PASSWORD));
-                    ChatizoApplication.getInstance().setUser(user);
-                    ChatizoApplication.getInstance().setAccessToken(
-                            obj.optJSONObject(Constants.ACCESS).optString(Constants.ACCESS_TOKEN));
-                    return true;
-                } else {
-                    mIsLogin = true;
-                    performRequest();
-                    return true;
-                }
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+                return "exception";
             }
-            return false;
+            try {
+                // Setup HttpURLConnection class to send and receive data from php and mysql
+                conn = (HttpURLConnection) url.openConnection();
+                conn.setReadTimeout(READ_TIMEOUT);
+                conn.setConnectTimeout(CONNECTION_TIMEOUT);
+                conn.setRequestMethod("POST");
+
+                // setDoInput and setDoOutput method depict handling of both send and receive
+                conn.setDoInput(true);
+                conn.setDoOutput(true);
+
+                // Append parameters to URL
+                Uri.Builder builder = new Uri.Builder()
+                        .appendQueryParameter("username", params[0])
+                        .appendQueryParameter("password", params[1]);
+                String query = builder.build().getEncodedQuery();
+
+                // Open connection for sending data
+                OutputStream os = conn.getOutputStream();
+                BufferedWriter writer = new BufferedWriter(
+                        new OutputStreamWriter(os, "UTF-8"));
+                writer.write(query);
+                writer.flush();
+                writer.close();
+                os.close();
+                conn.connect();
+
+            } catch (IOException e1) {
+                e1.printStackTrace();
+                return "exception";
+            }
+
+            try {
+
+                int response_code = conn.getResponseCode();
+
+                // Check if successful connection made
+                if (response_code == HttpURLConnection.HTTP_OK) {
+
+                    // Read data sent from server
+                    InputStream input = conn.getInputStream();
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+                    StringBuilder result = new StringBuilder();
+                    String line;
+
+                    while ((line = reader.readLine()) != null) {
+                        result.append(line);
+                    }
+
+                    // Pass data to onPostExecute method
+                    return (result.toString());
+
+                } else {
+
+                    return ("unsuccessful");
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                return "exception";
+            } finally {
+                conn.disconnect();
+            }
         }
 
         @Override
-        public void performSuccessfulOperation() {
-            Intent intent = new Intent(LoginScreen.this, MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
+        protected void onPostExecute(String result) {
 
+            //this method will be running on UI thread
+
+            pdLoading.dismiss();
+
+            if (result.equalsIgnoreCase("true")) {
+                /* Here launching another activity when login successful. If you persist login state
+                use sharedPreferences of Android. and logout button to clear sharedPreferences.
+                 */
+
+                Intent intent = new Intent(LoginScreen.this, AfterLoginController.class);
+                startActivity(intent);
+                LoginScreen.this.finish();
+
+            } else if (result.equalsIgnoreCase("false")) {
+
+                // If username and password does not match display a error message
+                Toast.makeText(LoginScreen.this, "Invalid email or password", Toast.LENGTH_LONG).show();
+
+            } else if (result.equalsIgnoreCase("exception") || result.equalsIgnoreCase("unsuccessful")) {
+
+                Toast.makeText(LoginScreen.this, "OOPs! Something went wrong. Connection Problem.", Toast.LENGTH_LONG).show();
+
+            }
         }
-
     }
-     */
 }
+
+
+
+
+
 
