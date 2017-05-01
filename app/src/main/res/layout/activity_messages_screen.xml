@@ -8,28 +8,57 @@
     android:orientation="vertical"
     tools:context="com.example.gabriella.chatizoproject.MessagesScreen">
 
-
-    <android.support.constraint.ConstraintLayout
+    <FrameLayout
+        android:id="@+id/content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/composeMessage"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:clickable="true"
-            app:backgroundTint="?android:attr/textColorSearchUrl"
-            app:fabSize="mini"
-            app:srcCompat="@drawable/pencil"
-            tools:layout_editor_absoluteX="322dp"
-            tools:layout_editor_absoluteY="1dp" />
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="380dp"
+            android:layout_height="40dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true" />
 
-        <TextView
-            android:id="@+id/composeText"
-            android:layout_width="304dp"
-            android:layout_height="495dp"
-            android:text="Press to compose"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="8dp" />
-    </android.support.constraint.ConstraintLayout>
+    </FrameLayout>
+
+
+
+    <!--<RelativeLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
+    <!--<EditText-->
+        <!--android:id="@+id/editText4"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="90dp"-->
+        <!--android:ems="10"-->
+        <!--android:paddingBottom="10dp"-->
+        <!--android:inputType="textMultiLine"-->
+        <!--android:hint="Enter Message"/>-->
+
+    <!--<Button-->
+        <!--android:id="@+id/button"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignBaseline="@+id/editText4"-->
+        <!--android:layout_alignBottom="@+id/editText4"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:text="send"-->
+        <!--/>-->
+
+    <!--</RelativeLayout>-->
+
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@drawable/pencil" />
+
+
 </LinearLayout>
