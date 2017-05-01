@@ -28,6 +28,7 @@ public class ContactsScreen extends Fragment {
     private ArrayList<Contact> contacts_list;
     private ListView lv;
     private ArrayAdapter<Contact> listAdapter;
+    private Contact cntact;
 
     public static ContactsScreen newInstance() {
         ContactsScreen frag = new ContactsScreen();
@@ -46,7 +47,7 @@ public class ContactsScreen extends Fragment {
 
         //this is the contact list view
         lv = (ListView)rootview.findViewById(R.id.mainListView);
-        contacts_list = new ArrayList<>();
+        contacts_list = new ArrayList<Contact>();
         listAdapter = new ArrayAdapter<Contact>(getActivity(), R.layout.simplerow, contacts_list);
 
         //the pink button to add contacts
@@ -83,7 +84,9 @@ public class ContactsScreen extends Fragment {
                                 } else {
                                     id_Text = titleBox.getText().toString();
                                     nname_text = descriptionBox.getText().toString();
-                                    contacts_list.add(new Contact(id_Text,nname_text));
+                                    cntact = new Contact(id_Text,nname_text);
+                                    //contacts_list.add(cntact);
+                                    listAdapter.add(cntact);
                                 }
                             }
                         }).setNegativeButton("Cancel",
