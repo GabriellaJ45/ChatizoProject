@@ -24,30 +24,41 @@
 
     </FrameLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    <EditText
-        android:id="@+id/editText4"
-        android:layout_width="match_parent"
-        android:layout_height="140dp"
-        android:ems="10"
-        android:paddingBottom="10dp"
-        android:inputType="textMultiLine"
-        android:hint="Enter Message"/>
 
-    <Button
-        android:id="@+id/button"
+
+    <!--<RelativeLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
+    <!--<EditText-->
+        <!--android:id="@+id/editText4"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="90dp"-->
+        <!--android:ems="10"-->
+        <!--android:paddingBottom="10dp"-->
+        <!--android:inputType="textMultiLine"-->
+        <!--android:hint="Enter Message"/>-->
+
+    <!--<Button-->
+        <!--android:id="@+id/button"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignBaseline="@+id/editText4"-->
+        <!--android:layout_alignBottom="@+id/editText4"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:text="send"-->
+        <!--/>-->
+
+    <!--</RelativeLayout>-->
+
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/editText4"
-        android:layout_alignBottom="@+id/editText4"
-        android:layout_alignParentEnd="true"
-        android:text="send"
-        />
-
-    </RelativeLayout>
-
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@drawable/pencil" />
 
 
 </LinearLayout>
