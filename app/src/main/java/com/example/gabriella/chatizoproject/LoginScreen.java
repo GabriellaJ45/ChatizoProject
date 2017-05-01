@@ -45,11 +45,11 @@ public class LoginScreen extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         connectionClass = new ConnectionClass();
-        b1 = (Button) findViewById(R.id.button);
+        b1 = (Button) findViewById(R.id.selectLanguage);
         usernameView = (EditText) findViewById(R.id.editText);
         passwordView = (EditText) findViewById(R.id.editText2);
         rememberMe = (CheckBox) findViewById(R.id.checkBox);
-        b2 = (Button) findViewById(R.id.button2);
+        b2 = (Button) findViewById(R.id.editFont);
 
     }
     public void checkExit(View arg0){

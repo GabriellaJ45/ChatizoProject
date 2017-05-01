@@ -50,14 +50,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="login"
-        android:id="@+id/button"
-        android:layout_alignBaseline="@+id/button2"
-        android:layout_alignBottom="@+id/button2"
+        android:id="@+id/selectLanguage"
+        android:layout_alignBaseline="@+id/editFont"
+        android:layout_alignBottom="@+id/editFont"
         android:layout_alignParentEnd="true"
         android:onClick="checkLogin"/>
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/editFont"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Exit"

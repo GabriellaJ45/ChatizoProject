@@ -36,7 +36,8 @@
         <activity
             android:name=".AfterLoginController"
             android:label="AfterLogin" />
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".MessageTimeout"></activity>
     </application>
 
 </manifest>
