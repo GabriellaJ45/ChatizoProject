@@ -213,7 +213,7 @@ public class SettingsScreen extends Fragment {
                                 }*/
                                 if(checkbox1.isChecked()) {
                                     Toast.makeText(getActivity().getApplicationContext(), "Encryption by Pattern", Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(getActivity().getApplicationContext(), NormalActivity.class));
+                                    //startActivity(new Intent(getActivity().getApplicationContext(), NormalActivity.class));
 
                                 }
 

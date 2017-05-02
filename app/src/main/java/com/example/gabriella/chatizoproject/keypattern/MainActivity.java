@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick(R.id.btn_normal)
+    @OnClick(R.id.send_button)
     public void onBtnNormalClick() {
         startActivity(new Intent(this, NormalActivity.class));
     }

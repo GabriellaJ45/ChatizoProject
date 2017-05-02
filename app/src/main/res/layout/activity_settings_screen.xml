@@ -76,13 +76,4 @@
     </FrameLayout>
 
 
-    <Button
-        android:id="@+id/btn_normal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:text="@string/normal_demo"
-        android:textAllCaps="false" />
-
-
 </LinearLayout>
