@@ -22,37 +22,28 @@
                 android:id="@+id/selectLanguage"
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
-                android:text="Select Language"
-                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true" />
+                android:layout_alignParentTop="true"
+                android:text="Select Language" />
 
             <Button
                 android:id="@+id/editFont"
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
-                android:text="Edit Font Size"
-                android:layout_below="@+id/selectLanguage"
+                android:layout_alignParentEnd="true"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true" />
+                android:layout_below="@+id/selectLanguage"
+                android:text="Edit Font Size" />
 
             <Button
                 android:id="@+id/changeTheme"
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
-                android:text="Change Theme Colors"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentStart="true"
                 android:layout_below="@+id/editFont"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true" />
-
-            <Button
-                android:id="@+id/defaultSecurity"
-                android:layout_width="wrap_content"
-                android:layout_height="60dp"
-                android:text="Default Security Options"
-                android:layout_below="@+id/changeTheme"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true" />
+                android:text="Change Theme Colors" />
 
             <Button
                 android:id="@+id/logout"
@@ -60,15 +51,12 @@
                 android:layout_height="60dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/defaultSecurity"
+                android:layout_below="@+id/changeTheme"
                 android:text="Logout" />
 
         </RelativeLayout>
 
     </FrameLayout>
-
-
-
 
 
 </LinearLayout>
