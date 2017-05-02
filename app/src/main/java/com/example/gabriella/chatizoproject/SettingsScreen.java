@@ -1,27 +1,27 @@
 package com.example.gabriella.chatizoproject;
 
-
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.app.Activity;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.gabriella.chatizoproject.keypattern.NormalActivity;
 
+
+import java.io.File;
 
 /**
  * Created by yungbena on 4/23/17.
@@ -164,12 +164,8 @@ public class SettingsScreen extends Fragment {
             }
         });
 
-
-
-
-
-
         //set default security button
+        /*
         b4 =(Button)rootview.findViewById(R.id.defaultSecurity);
         b4.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -191,12 +187,14 @@ public class SettingsScreen extends Fragment {
                 checkbox2.setText("Encryption by Key");
                 layout.addView(checkbox2);
 
+
+
                 final AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
                 alert.setTitle("Change Security Options:");
                 alert.setView(layout).setPositiveButton("Save",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
-                                /*
+
                                 if(checkbox.isChecked()) {
                                     Intent intent = new Intent(getActivity().getApplicationContext(), MessageTimeout.class);
                                     startActivity(intent);
@@ -210,15 +208,14 @@ public class SettingsScreen extends Fragment {
                                             return;
                                         }
                                     }
-                                }*/
-                                if(checkbox1.isChecked()) {
-                                    Toast.makeText(getActivity().getApplicationContext(), "Encryption by Pattern", Toast.LENGTH_SHORT).show();
-                                    //startActivity(new Intent(getActivity().getApplicationContext(), NormalActivity.class));
-
+                                }
+                                if(checkbox1.isChecked())
+                                    Toast.makeText(getActivity().getApplicationContext(), "Encryption by Pattern",Toast.LENGTH_SHORT).show();
+                                if(checkbox2.isChecked()){
+                                    Intent intent2 = new Intent(getActivity().getApplicationContext(), FileExplorer.class);
+                                    startActivity(intent2);
                                 }
 
-                                if(checkbox2.isChecked())
-                                    Toast.makeText(getActivity().getApplicationContext(), "Encryption by Key",Toast.LENGTH_SHORT).show();
                             }
                         }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
@@ -228,7 +225,7 @@ public class SettingsScreen extends Fragment {
                         });
                 alert.show();
             }
-        });
+        }); */
 
         //Logout button
         b5 =(Button)rootview.findViewById(R.id.logout);
@@ -236,7 +233,7 @@ public class SettingsScreen extends Fragment {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getContext(), "Logging Out...",Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getActivity().getApplicationContext(), LoginScreen.class); //LoginScreen.class
+                Intent intent = new Intent(getActivity().getApplicationContext(), LoginScreen.class);
                 startActivity(intent);
                 getActivity().finish();
             }
@@ -244,7 +241,4 @@ public class SettingsScreen extends Fragment {
 
         return rootview;
     }
-
-
-
 }
