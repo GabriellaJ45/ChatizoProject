@@ -1,66 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.gabriella.chatizoproject.MessagesScreen">
-
-    <FrameLayout
-        android:id="@+id/content"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="380dp"
-            android:layout_height="40dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true" />
-
-    </FrameLayout>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@drawable/pencil" />
+    tools:context="com.example.gabriella.chatizoproject.MessagesScreen"
+    android:weightSum="1"
+    tools:layout_editor_absoluteY="81dp"
+    tools:layout_editor_absoluteX="0dp">
 
 
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
     <EditText
-        android:id="@+id/editText4"
-        android:layout_width="match_parent"
-        android:layout_height="90dp"
+        android:id="@+id/message_input"
+        android:layout_width="267dp"
+        android:layout_height="wrap_content"
         android:ems="10"
-        android:paddingBottom="10dp"
-        android:inputType="textMultiLine"
-        android:hint="Enter Message"/>
+        android:inputType="textPersonName"
+        android:text="Send Message"
+        tools:layout_editor_absoluteY="452dp"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <TextView
+        android:id="@+id/message_panel"
+        android:layout_width="381dp"
+        android:layout_height="402dp"
+        android:text="TextView"
+        tools:layout_editor_absoluteX="2dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/message_input"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp" />
 
     <Button
         android:id="@+id/send_button"
+        android:layout_width="104dp"
+        android:layout_height="53dp"
+        android:text="Send"
+        tools:layout_editor_absoluteX="279dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/compose_button" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/compose_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/editText4"
-        android:layout_alignBottom="@+id/editText4"
-        android:layout_alignParentEnd="true"
-        android:text="send"
-        />
+        android:clickable="true"
+        app:fabSize="mini"
+        app:srcCompat="@drawable/pencil"
+        tools:layout_editor_absoluteX="315dp"
+        tools:layout_editor_absoluteY="386dp" />
 
-    </RelativeLayout>
-
-
-
-
-
-
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

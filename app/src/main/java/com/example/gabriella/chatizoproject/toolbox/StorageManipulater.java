@@ -30,7 +30,7 @@ public class StorageManipulater extends SQLiteOpenHelper {
             + " (" + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + MESSAGE_RECEIVER + " VARCHAR(25), "
             + MESSAGE_SENDER + " VARCHAR(25), "
-            +MESSAGE_MESSAGE + " VARCHAR(255));";
+            + MESSAGE_MESSAGE + " VARCHAR(255));";
 
     private static final String TABLE_MESSAGE_DROP =
             "DROP TABLE IF EXISTS "

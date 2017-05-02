@@ -28,6 +28,7 @@ import android.widget.CheckBox;
 
 
 public class LoginScreen extends AppCompatActivity {
+    public static String AUTHENTICATION_FAILED = "0";
     public static final int CONNECTION_TIMEOUT = 10000;
     public static final int READ_TIMEOUT = 15000;
     private Button login, exit, b1, b2;
@@ -36,6 +37,7 @@ public class LoginScreen extends AppCompatActivity {
     private boolean saveLogin;
     private SharedPreferences loginPreferences;
     ConnectionClass connectionClass;
+
 
     private int counter = 3;
 
@@ -183,6 +185,7 @@ public class LoginScreen extends AppCompatActivity {
             } else if (result.equalsIgnoreCase("exception") || result.equalsIgnoreCase("unsuccessful")) {
 
                 Toast.makeText(LoginScreen.this, "OOPs! Something went wrong. Connection Problem.", Toast.LENGTH_LONG).show();
+                AUTHENTICATION_FAILED = "1";
 
             }
         }

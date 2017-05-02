@@ -25,7 +25,7 @@ import android.util.Log;
 
 public class Socketer implements SocketerInterface {
 
-    private static final String AUTHENTICATION_SERVER_ADDRESS = "http://183.197.83.20";
+    private static final String AUTHENTICATION_SERVER_ADDRESS = "http://183.197.83.20/AndroidChatter/";
 
     private int listeningPort = 0;
 
@@ -157,22 +157,18 @@ public class Socketer implements SocketerInterface {
     }
 
 
-    public void stopListening()
-    {
+    public void stopListening() {
         this.listening = false;
     }
 
-    public void exit()
-    {
-        for (Iterator<Socket> iterator = sockets.values().iterator(); iterator.hasNext();)
-        {
+    public void exit() {
+        for (Iterator<Socket> iterator = sockets.values().iterator(); iterator.hasNext();) {
             Socket socket = (Socket) iterator.next();
             try {
                 socket.shutdownInput();
                 socket.shutdownOutput();
                 socket.close();
-            } catch (IOException e)
-            {
+            } catch (IOException e) {
             }
         }
 
