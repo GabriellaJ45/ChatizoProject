@@ -1,12 +1,13 @@
 package com.example.gabriella.chatizoproject;
 
+
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.app.Activity;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,9 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+
+import com.example.gabriella.chatizoproject.keypattern.NormalActivity;
+
 
 /**
  * Created by yungbena on 4/23/17.
@@ -36,6 +40,9 @@ public class SettingsScreen extends Fragment {
         super.onCreate(savedInstanceState);
 
     }
+
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -157,6 +164,11 @@ public class SettingsScreen extends Fragment {
             }
         });
 
+
+
+
+
+
         //set default security button
         b4 =(Button)rootview.findViewById(R.id.defaultSecurity);
         b4.setOnClickListener(new View.OnClickListener() {
@@ -199,8 +211,12 @@ public class SettingsScreen extends Fragment {
                                         }
                                     }
                                 }*/
-                                if(checkbox1.isChecked())
-                                    Toast.makeText(getActivity().getApplicationContext(), "Encryption by Pattern",Toast.LENGTH_SHORT).show();
+                                if(checkbox1.isChecked()) {
+                                    Toast.makeText(getActivity().getApplicationContext(), "Encryption by Pattern", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(getActivity().getApplicationContext(), NormalActivity.class));
+
+                                }
+
                                 if(checkbox2.isChecked())
                                     Toast.makeText(getActivity().getApplicationContext(), "Encryption by Key",Toast.LENGTH_SHORT).show();
                             }
@@ -220,7 +236,7 @@ public class SettingsScreen extends Fragment {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getContext(), "Logging Out...",Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getActivity().getApplicationContext(), LoginScreen.class);
+                Intent intent = new Intent(getActivity().getApplicationContext(), LoginScreen.class); //LoginScreen.class
                 startActivity(intent);
                 getActivity().finish();
             }
@@ -228,4 +244,7 @@ public class SettingsScreen extends Fragment {
 
         return rootview;
     }
+
+
+
 }

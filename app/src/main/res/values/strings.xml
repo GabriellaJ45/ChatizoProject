@@ -24,4 +24,7 @@
     <string name="title_activity_messages_screen">Messages</string>
     <string name="title_activity_contacts_screen">Contacts</string>
 
+
+    <string name="normal_demo">Normal Demo</string>
+    <string name="android_l_style">Android L Style</string>
 </resources>

@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.gabriella.chatizoproject">
 
+    <uses-permission android:name="android.permission.VIBRATE" />
+
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
@@ -33,11 +35,42 @@
         <activity android:name=".ContactsScreen"
                 android:label ="Contacts"/>
         -->
+
+
         <activity
             android:name=".AfterLoginController"
             android:label="AfterLogin" />
-        <activity android:name=".MainActivity" />
+        <!--<activity android:name=".MainActivity" />-->
         <activity android:name=".MessageTimeout"></activity>
+
+        <activity
+            android:name=".keypattern.MainActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".keypattern.NormalActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     </application>
 
 </manifest>
