@@ -5,7 +5,6 @@
       <module fileurl="file://$PROJECT_DIR$/ChatizoProject.iml" filepath="$PROJECT_DIR$/ChatizoProject.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/lock9view/lock9view.iml" filepath="$PROJECT_DIR$/lock9view/lock9view.iml" />
-      <module fileurl="file://$PROJECT_DIR$/lock9view/lock9view.iml" filepath="$PROJECT_DIR$/lock9view/lock9view.iml" />
     </modules>
   </component>
 </project>
