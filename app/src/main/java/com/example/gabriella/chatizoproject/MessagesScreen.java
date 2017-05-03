@@ -21,6 +21,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView;
 
@@ -47,8 +48,8 @@ public class MessagesScreen extends Fragment {
     private String message = "";
     private InputMethodManager imm;
     private String userid = "";
-    //private String nname = "";
-    private String userid;
+    private String nname = "";
+    private String toid;
     private ListView lv;
     private ArrayAdapter<String> listAdapter;
     private List<String> messages;
@@ -62,9 +63,13 @@ public class MessagesScreen extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle bundle = this.getArguments();
-        //nname = bundle.getString("NNAME");
+        nname = bundle.getString("NNAME");
         userid = bundle.getString("USERID");
+        toid = bundle.getString("TOID");
+
     }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -92,12 +97,23 @@ public class MessagesScreen extends Fragment {
         composebutton.setVisibility(FloatingActionButton.VISIBLE);
         contact.setVisibility(EditText.VISIBLE);
 
+        if(!nname.equals("")) {
+            String str = nname;
+            //final EditText editText = (EditText) rootview.findViewById(R.id.editText3);
+            contact.setText(str ,TextView.BufferType.EDITABLE);
+        }
+
+
+
 
         composebutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putString("USERID", userid);
                 Fragment selectedFragment = null;
                 selectedFragment = ContactsScreen.newInstance();
+                selectedFragment.setArguments(bundle);
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 transaction.replace(R.id.frame_layout, selectedFragment);
                 transaction.commit();
@@ -108,7 +124,7 @@ public class MessagesScreen extends Fragment {
             @Override
             public void onClick(View view) {
                 message = editText.getText().toString();
-                if(!message.equals("")) {
+                if(!message.equals("") && !toid.equals("")) {
                     LinearLayout layout = new LinearLayout(getActivity());
                     layout.setOrientation(LinearLayout.VERTICAL);
 
@@ -117,13 +133,13 @@ public class MessagesScreen extends Fragment {
                     layout.addView(checkbox);
                     checkbox.setChecked(true);
 
-                    final CheckBox checkbox1 = new CheckBox(getActivity());
+                    /*final CheckBox checkbox1 = new CheckBox(getActivity());
                     checkbox1.setText("Encryption by Pattern");
                     layout.addView(checkbox1);
 
                     final CheckBox checkbox2 = new CheckBox(getActivity());
                     checkbox2.setText("Encryption by Key");
-                    layout.addView(checkbox2);
+                    layout.addView(checkbox2);*/
 
                     final AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
                     alert.setTitle("Change Security Options:");
@@ -145,16 +161,16 @@ public class MessagesScreen extends Fragment {
                                         }
                                     }
                                 }*/
-                                    if (checkbox1.isChecked()) {
+                                   /* if (checkbox1.isChecked()) {
                                         Toast.makeText(getActivity().getApplicationContext(), "Encryption by Pattern", Toast.LENGTH_SHORT).show();
-                                        //startActivity(new Intent(getActivity().getApplicationContext(), NormalActivity.class));
+                                        startActivity(new Intent(getActivity().getApplicationContext(), NormalActivity.class));
 
                                     }
 
                                     if (checkbox2.isChecked())
-                                        Toast.makeText(getActivity().getApplicationContext(), "Encryption by Key", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getActivity().getApplicationContext(), "Encryption by Key", Toast.LENGTH_SHORT).show();*/
 
-                                    new MessagingSent().execute(userid, "chatizo", message);
+                                    new MessagingSent().execute(userid, toid, message);
                                 }
                             }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int whichButton) {
@@ -166,7 +182,7 @@ public class MessagesScreen extends Fragment {
                     editText.setText("");
                     imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
                 } else{
-                    Toast.makeText(getActivity().getApplicationContext(), "Please Enter Message", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity().getApplicationContext(), "Please Enter Message or Contact", Toast.LENGTH_SHORT).show();
                 }
             }
         });

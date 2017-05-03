@@ -138,8 +138,9 @@ public class ContactsScreen extends Fragment {
 
                 Fragment selectedFragment = null;
                 Bundle bundle = new Bundle();
-                bundle.putString("USERID", idnum);
-                //bundle.putString("NNAME", name);
+                bundle.putString("USERID", userid);
+                bundle.putString("NNAME", name);
+                bundle.putString("TOID", idnum);
                 selectedFragment = MessagesScreen.newInstance();
 
                 selectedFragment.setArguments(bundle);

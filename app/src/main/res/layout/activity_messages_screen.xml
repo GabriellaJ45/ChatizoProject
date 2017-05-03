@@ -48,8 +48,8 @@
             android:hint="Contact"
             android:layout_above="@+id/editText4"
             android:layout_alignParentStart="true"
-            android:id="@+id/editText3"
-            android:focusable="false"/>
+            android:focusable="false"
+            android:id="@+id/editText3" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab"

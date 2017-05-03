@@ -27,6 +27,8 @@ public class AfterLoginController extends AppCompatActivity {
         userid = getIntent().getStringExtra("USERID");
         bundle = new Bundle();
         bundle.putString("USERID", userid);
+        bundle.putString("NNAME", "");
+        bundle.putString("TOID", "");
         bottomNavigationView.setOnNavigationItemSelectedListener
                 (new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override
@@ -60,10 +62,10 @@ public class AfterLoginController extends AppCompatActivity {
                 });
 
         //Manually displaying the first fragment - one time only
-        Fragment primaryFrag = ContactsScreen.newInstance();
-        primaryFrag.setArguments(bundle);
+        Fragment selectedFragment = ContactsScreen.newInstance();
+        selectedFragment.setArguments(bundle);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frame_layout, primaryFrag);
+        transaction.replace(R.id.frame_layout, selectedFragment);
         getSupportActionBar().setTitle("Contacts");
         transaction.commit();
 
