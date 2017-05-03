@@ -8,57 +8,80 @@
     android:orientation="vertical"
     tools:context="com.example.gabriella.chatizoproject.MessagesScreen">
 
-    <FrameLayout
-        android:id="@+id/content"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
 
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="380dp"
-            android:layout_height="40dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true" />
-
-    </FrameLayout>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@drawable/pencil" />
 
 
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/back_button"
+            android:layout_width="175dp"
+            android:layout_height="50dp"
+            android:text="back"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true" />
+
+        <Button
+            android:id="@+id/unread_button"
+            android:layout_width="175dp"
+            android:layout_height="55dp"
+            android:text="View Unread Messages"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true" />
+
+            <ListView
+                android:id="@+id/mainListView1"
+                android:layout_width="wrap_content"
+                android:layout_height="311dp"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/back_button"
+                android:layout_above="@+id/editText3">
+
+            </ListView>
+
         <EditText
-            android:id="@+id/editText4"
-            android:layout_width="match_parent"
-            android:layout_height="90dp"
-            android:ems="10"
-            android:paddingBottom="10dp"
-            android:inputType="textMultiLine"
-            android:hint="Enter Message"/>
+            android:layout_width="400dp"
+            android:layout_height="70dp"
+            android:hint="Contact"
+            android:layout_above="@+id/editText4"
+            android:layout_alignParentStart="true"
+            android:id="@+id/editText3" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            app:srcCompat="@drawable/pencil"
+            android:layout_marginLeft="@dimen/fab_margin"
+            android:layout_marginRight="@dimen/fab_margin"
+            android:layout_marginBottom="17dp"
+            android:layout_above="@+id/editText4"
+            android:layout_alignParentEnd="true" />
+
 
         <Button
             android:id="@+id/send_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="send"
             android:layout_alignBaseline="@+id/editText4"
             android:layout_alignBottom="@+id/editText4"
-            android:layout_alignParentEnd="true"
-            android:text="send"
-            />
-
+            android:layout_alignParentEnd="true" />
+        <EditText
+            android:id="@+id/editText4"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:ems="10"
+            android:hint="Enter Message"
+            android:inputType="textMultiLine"
+            android:paddingBottom="10dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true" />
     </RelativeLayout>
-
-
 
 
 

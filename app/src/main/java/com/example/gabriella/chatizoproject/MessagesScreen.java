@@ -14,10 +14,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.gabriella.chatizoproject.keypattern.NormalActivity;
@@ -32,21 +34,22 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-
-
-
-
-
-
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class MessagesScreen extends Fragment {
-    private Button b1;
+    private Button b1, back, unread;
     private FloatingActionButton composebutton;
-    private EditText editText;
+    private EditText editText, contact;
     private String message = "";
     private InputMethodManager imm;
     private String userid = "";
     //private String nname = "";
+    private String userid;
+    private ListView lv;
+    private ArrayAdapter<String> listAdapter;
+    private List<String> messages;
 
     public static MessagesScreen newInstance() {
         MessagesScreen frag = new MessagesScreen();
@@ -59,27 +62,35 @@ public class MessagesScreen extends Fragment {
         Bundle bundle = this.getArguments();
         //nname = bundle.getString("NNAME");
         userid = bundle.getString("USERID");
-
-
     }
-
-
-
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootview = inflater.inflate(R.layout.activity_messages_screen, container, false);
+        messages = new ArrayList<String>();
         new MessagingRequest().execute(userid);
+        lv = (ListView)rootview.findViewById(R.id.mainListView1);
+        listAdapter = new ArrayAdapter<String>(getActivity(), R.layout.simplerow, messages);
 
         imm = (InputMethodManager) getActivity().getSystemService(getActivity().getApplicationContext().INPUT_METHOD_SERVICE);
         //set default security button
         b1 = (Button) rootview.findViewById(R.id.send_button);
+        unread = (Button) rootview.findViewById(R.id.unread_button);
+        back = (Button) rootview.findViewById(R.id.back_button);
         editText = (EditText)rootview.findViewById(R.id.editText4);
-
+        contact = (EditText) rootview.findViewById(R.id.editText3);
         composebutton = (FloatingActionButton)rootview.findViewById(R.id.fab);
+
+        lv.setVisibility(ListView.INVISIBLE);
+        editText.setVisibility(EditText.VISIBLE);
+        b1.setVisibility(Button.VISIBLE);
+        unread.setVisibility(Button.VISIBLE);
+        back.setVisibility(Button.INVISIBLE);
+        composebutton.setVisibility(FloatingActionButton.VISIBLE);
+        contact.setVisibility(EditText.VISIBLE);
+
+
         composebutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -90,9 +101,6 @@ public class MessagesScreen extends Fragment {
                 transaction.commit();
             }
     });
-
-
-
 
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -158,6 +166,32 @@ public class MessagesScreen extends Fragment {
                 } else{
                     Toast.makeText(getActivity().getApplicationContext(), "Please Enter Message", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        unread.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                lv.setVisibility(ListView.VISIBLE);
+                editText.setVisibility(EditText.INVISIBLE);
+                b1.setVisibility(Button.INVISIBLE);
+                unread.setVisibility(Button.INVISIBLE);
+                back.setVisibility(Button.VISIBLE);
+                composebutton.setVisibility(FloatingActionButton.INVISIBLE);
+                contact.setVisibility(EditText.INVISIBLE);
+            }
+        });
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                lv.setVisibility(ListView.INVISIBLE);
+                editText.setVisibility(EditText.VISIBLE);
+                b1.setVisibility(Button.VISIBLE);
+                unread.setVisibility(Button.VISIBLE);
+                back.setVisibility(Button.INVISIBLE);
+                composebutton.setVisibility(FloatingActionButton.VISIBLE);
+                contact.setVisibility(EditText.VISIBLE);
             }
         });
 
@@ -248,6 +282,7 @@ public class MessagesScreen extends Fragment {
         //@Override
         protected void onPostExecute(String result) {
             Toast.makeText(getActivity().getApplicationContext(), result, Toast.LENGTH_SHORT).show();
+
         }
 
 
@@ -335,7 +370,12 @@ public class MessagesScreen extends Fragment {
 
         //@Override
         protected void onPostExecute(String result) {
-            Toast.makeText(getActivity().getApplicationContext(), result, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getActivity().getApplicationContext(), result, Toast.LENGTH_SHORT).show();
+            String[] rows = result.split("`");
+            for(String s : rows){
+                listAdapter.add(s);
+            }
+            lv.setAdapter(listAdapter);
         }
 
 
