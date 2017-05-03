@@ -151,7 +151,7 @@ public class MessagesScreen extends Fragment {
 
                 Uri.Builder builder = new Uri.Builder()
                         .appendQueryParameter("fuid", args[0])
-                        .appendQueryParameter("ruid", args[1]);
+                        .appendQueryParameter("ruid", args[1]).appendQueryParameter("mtext", args[2]);
                 String query = builder.build().getEncodedQuery();
                 int response_code = conn.getResponseCode();
 
