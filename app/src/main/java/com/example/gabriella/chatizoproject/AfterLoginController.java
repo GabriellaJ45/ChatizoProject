@@ -60,8 +60,10 @@ public class AfterLoginController extends AppCompatActivity {
                 });
 
         //Manually displaying the first fragment - one time only
+        Fragment primaryFrag = ContactsScreen.newInstance();
+        primaryFrag.setArguments(bundle);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frame_layout, ContactsScreen.newInstance());
+        transaction.replace(R.id.frame_layout, primaryFrag);
         getSupportActionBar().setTitle("Contacts");
         transaction.commit();
 

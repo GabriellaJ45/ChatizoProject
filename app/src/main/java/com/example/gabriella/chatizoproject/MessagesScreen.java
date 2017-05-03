@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -189,6 +190,16 @@ public class MessagesScreen extends Fragment {
                 back.setVisibility(Button.INVISIBLE);
                 composebutton.setVisibility(FloatingActionButton.VISIBLE);
                 contact.setVisibility(EditText.VISIBLE);
+            }
+        });
+
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //String name = contacts_list.get(position).getNickname1();
+                //String idnum = contacts_list.get(position).getId1();
+                String msg = messages.get(position);
+                Toast.makeText(getActivity().getApplicationContext(), msg, Toast.LENGTH_LONG).show();
             }
         });
 
