@@ -40,6 +40,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MessagesScreen extends Fragment {
     private Button b1, back, unread;
@@ -438,9 +440,16 @@ public class MessagesScreen extends Fragment {
                                         lv.setAdapter(listAdapter);
                                     }
                                 });
-                        AlertDialog alert = builder.create();
+                        final AlertDialog alert = builder.create();
                         alert.show();
-
+                        final Timer timer2 = new Timer();
+                        timer2.schedule(new TimerTask() {
+                            public void run() {
+                                new deleteMessage().execute(userid, "chatizo", messagesID);
+                                alert.dismiss();
+                                timer2.cancel(); //this will cancel the timer of the system
+                            }
+                        }, 20000);
                     }
                 });
 
