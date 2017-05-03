@@ -174,6 +174,7 @@ public class LoginScreen extends AppCompatActivity {
                  */
 
                 Intent intent = new Intent(LoginScreen.this, AfterLoginController.class);
+                intent.putExtra("USERID", usernameView.getText().toString());
                 startActivity(intent);
                 LoginScreen.this.finish();
 

@@ -14,12 +14,19 @@ import android.view.MenuItem;
  */
 
 public class AfterLoginController extends AppCompatActivity {
+
+
+    private String userid;
+    private Bundle bundle;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_after_login);
         BottomNavigationView bottomNavigationView = (BottomNavigationView)
                 findViewById(R.id.navigation);
 
+        userid = getIntent().getStringExtra("USERID");
+        bundle = new Bundle();
+        bundle.putString("USERID", userid);
         bottomNavigationView.setOnNavigationItemSelectedListener
                 (new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override
@@ -41,6 +48,7 @@ public class AfterLoginController extends AppCompatActivity {
                                 break;
                         }
                         if(selectedFragment != null) {
+                            selectedFragment.setArguments(bundle);
                             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                             transaction.replace(R.id.frame_layout, selectedFragment);
                             getSupportActionBar().setTitle(title);
@@ -68,5 +76,9 @@ public class AfterLoginController extends AppCompatActivity {
         } else {
             super.onBackPressed();
         }
+    }
+
+    public String getUserid() {
+        return userid;
     }
 }
