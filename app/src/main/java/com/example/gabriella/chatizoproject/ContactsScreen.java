@@ -333,12 +333,14 @@ public class ContactsScreen extends Fragment {
         //@Override
         protected void onPostExecute(String result) {
             //Toast.makeText(getActivity().getApplicationContext(), result, Toast.LENGTH_SHORT).show();
-            String[] rows = result.split("`");
-            for(String s : rows){
-                String[] r = s.split("~");
-                listAdapter.add(new Contact(r[0], r[1]));
+            if(!result.equals("")) {
+                String[] rows = result.split("`");
+                for (String s : rows) {
+                    String[] r = s.split("~");
+                    listAdapter.add(new Contact(r[0], r[1]));
+                }
+                lv.setAdapter(listAdapter);
             }
-            lv.setAdapter(listAdapter);
         }
 
 

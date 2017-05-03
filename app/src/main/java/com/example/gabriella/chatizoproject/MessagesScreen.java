@@ -399,50 +399,52 @@ public class MessagesScreen extends Fragment {
         //@Override
         protected void onPostExecute(String result) {
             //Toast.makeText(getActivity().getApplicationContext(), result, Toast.LENGTH_SHORT).show();
-            String[] column = result.split(">");
+            if (!result.equals("")) {
+                String[] column = result.split(">");
 
-            for(String entry : column) {
-                String[] c2 = entry.split("&");
-                String content = c2[0];
-                String messageID = c2[1];
-                listAdapter.add(content + "-" + messageID);
-            }
-
-
-            lv.setAdapter(listAdapter);
-
-            //Set listener for when user clicks on contact from list
-            lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                    final String messageID = String.valueOf(position);
-
-                    String[] parts = (listAdapter.getItem(position)).split("-");
-                    String content = parts[0];
-                    final String messagesID = parts[1];
-                    String[] send1 = content.split(":");
-                    String sender = send1[0];
-                    String body = send1[1];
-
-
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                    builder.setTitle("Message from " + send1[0])
-                            .setCancelable(false)
-                            .setMessage(body)
-                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    new deleteMessage().execute(userid, "chatizo", messagesID);
-                                    listAdapter.remove(messageID);
-                                    lv.setAdapter(listAdapter);
-                                }
-                            });
-                    AlertDialog alert = builder.create();
-                    alert.show();
-
+                for (String entry : column) {
+                    String[] c2 = entry.split("&");
+                    String content = c2[0];
+                    String messageID = c2[1];
+                    listAdapter.add(content + "-" + messageID);
                 }
-            });
 
+
+                lv.setAdapter(listAdapter);
+
+                //Set listener for when user clicks on contact from list
+                lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                        final String messageID = String.valueOf(position);
+
+                        String[] parts = (listAdapter.getItem(position)).split("-");
+                        String content = parts[0];
+                        final String messagesID = parts[1];
+                        String[] send1 = content.split(":");
+                        String sender = send1[0];
+                        String body = send1[1];
+
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                        builder.setTitle("Message from " + send1[0])
+                                .setCancelable(false)
+                                .setMessage(body)
+                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        new deleteMessage().execute(userid, "chatizo", messagesID);
+                                        listAdapter.remove(messageID);
+                                        lv.setAdapter(listAdapter);
+                                    }
+                                });
+                        AlertDialog alert = builder.create();
+                        alert.show();
+
+                    }
+                });
+
+            }
         }
 
     }
