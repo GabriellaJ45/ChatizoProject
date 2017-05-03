@@ -22,6 +22,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
+import android.widget.AdapterView;
 
 import com.example.gabriella.chatizoproject.keypattern.NormalActivity;
 
@@ -379,13 +380,125 @@ public class MessagesScreen extends Fragment {
         //@Override
         protected void onPostExecute(String result) {
             //Toast.makeText(getActivity().getApplicationContext(), result, Toast.LENGTH_SHORT).show();
-            String[] rows = result.split("`");
-            for(String s : rows){
-                listAdapter.add(s);
+            String[] column = result.split(">");
+
+            for(String entry : column) {
+                String[] c2 = entry.split("&");
+                String content = c2[0];
+                String messageID = c2[1];
+                listAdapter.add(content + "-" + messageID);
             }
+
+
             lv.setAdapter(listAdapter);
+
+            //Set listener for when user clicks on contact from list
+            lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                    final String messageID = String.valueOf(position);
+
+                    String[] parts = (listAdapter.getItem(position)).split("-");
+                    String content = parts[0];
+                    final String messagesID = parts[1];
+                    String[] send1 = content.split(":");
+                    String sender = send1[0];
+                    String body = send1[1];
+
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setTitle("Message from " + send1[0])
+                            .setCancelable(false)
+                            .setMessage(body)
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    new deleteMessage().execute(userid, "chatizo", messagesID);
+                                    listAdapter.remove(messageID);
+                                    lv.setAdapter(listAdapter);
+                                }
+                            });
+                    AlertDialog alert = builder.create();
+                    alert.show();
+
+                }
+            });
+
         }
 
-
     }
+
+    public class deleteMessage extends AsyncTask<String, String, String>  {
+
+        private HttpURLConnection conn = null;
+        private URL url;
+
+
+
+        protected String doInBackground(String... args) {
+
+            try {
+                    // grab delete message php script
+                url = new URL("http://138.197.83.20/delmessage.inc.php");
+
+            } catch(MalformedURLException e) {
+                e.printStackTrace();
+            }
+
+            try {
+                conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("POST");
+                conn.setDoInput(true);
+                conn.setDoOutput(true);
+
+                Uri.Builder builder = new Uri.Builder()
+                        .appendQueryParameter("messageID", args[2]);
+                String query = builder.build().getEncodedQuery();
+
+
+                // Open connection for sending data
+                OutputStream os = conn.getOutputStream();
+                BufferedWriter writer = new BufferedWriter(
+                        new OutputStreamWriter(os, "UTF-8"));
+                writer.write(query);
+                writer.flush();
+                writer.close();
+                os.close();
+                conn.connect();
+                int response_code = conn.getResponseCode();
+
+                // Check if successful connection made
+                if (response_code == HttpURLConnection.HTTP_OK) {
+
+                    // Read data sent from server
+                    InputStream input = conn.getInputStream();
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+                    StringBuilder result = new StringBuilder();
+                    String line;
+
+                    while ((line = reader.readLine()) != null) {
+                        result.append(line);
+                    }
+
+                    // Pass data to onPostExecute method
+                    return (result.toString());
+
+                }
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+
+                if(conn != null) {
+                    conn.disconnect();
+                }
+            }
+
+            return "unsuccessful";
+
+        }
+
+    }   // end deleteMessages class
+
 }
