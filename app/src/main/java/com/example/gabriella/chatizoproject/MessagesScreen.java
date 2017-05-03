@@ -2,6 +2,8 @@ package com.example.gabriella.chatizoproject;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -18,6 +20,14 @@ import android.widget.Toast;
 
 import com.example.gabriella.chatizoproject.keypattern.NormalActivity;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 public class MessagesScreen extends Fragment {
     private Button b1;
     private FloatingActionButton composebutton;
@@ -30,6 +40,7 @@ public class MessagesScreen extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        new MessagingSent().execute();
     }
 
     @Override
@@ -103,11 +114,81 @@ public class MessagesScreen extends Fragment {
     }
 
 
+    public class MessagingSent extends AsyncTask<String, String, String> {
+/*        private TextView statusField,roleField;
+        private Context context;
+        private int byGetOrPost = 0;*/
+        private HttpURLConnection conn = null;
+        private URL url;
+        //flag 0 means get and 1 means post.(By default it is get.)
+/*        public (Context context,TextView statusField,TextView roleField,int flag) {
+            this.context = context;
+            this.statusField = statusField;
+            this.roleField = roleField;
+            byGetOrPost = flag;
+        }*/
+
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        //@Override
+        protected String doInBackground(String... args) {
+
+            try {
+
+                url = new URL("http://138.197.83.20/insmessage.inc.php");
 
 
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+            try {
+                conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("POST");
+                conn.setDoInput(true);
+                conn.setDoOutput(true);
+
+                Uri.Builder builder = new Uri.Builder()
+                        .appendQueryParameter("fuid", args[0])
+                        .appendQueryParameter("ruid", args[1]);
+                String query = builder.build().getEncodedQuery();
+                int response_code = conn.getResponseCode();
+
+                // Check if successful connection made
+                if (response_code == HttpURLConnection.HTTP_OK) {
+
+                    // Read data sent from server
+                    InputStream input = conn.getInputStream();
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+                    StringBuilder result = new StringBuilder();
+                    String line;
+
+                    while ((line = reader.readLine()) != null) {
+                        result.append(line);
+                    }
+
+                    // Pass data to onPostExecute method
+                    return (result.toString());
+
+                }
+
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (conn != null) {
+                    conn.disconnect();
+                }
+            }
+            return "Unsuccessful";
+        }
+
+        //@Override
+        protected void onPostExecute(String result) {
+            Toast.makeText(getActivity().getApplicationContext(), result, Toast.LENGTH_SHORT).show();
+        }
 
 
-
-
-
+    }
 }
