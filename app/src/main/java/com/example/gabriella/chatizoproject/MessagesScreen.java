@@ -33,13 +33,20 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+
+
+
+
+
+
 public class MessagesScreen extends Fragment {
     private Button b1;
     private FloatingActionButton composebutton;
     private EditText editText;
     private String message = "";
     private InputMethodManager imm;
-    private String userid;
+    private String userid = "";
+    //private String nname = "";
 
     public static MessagesScreen newInstance() {
         MessagesScreen frag = new MessagesScreen();
@@ -50,8 +57,16 @@ public class MessagesScreen extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle bundle = this.getArguments();
+        //nname = bundle.getString("NNAME");
         userid = bundle.getString("USERID");
+
+
     }
+
+
+
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -75,6 +90,9 @@ public class MessagesScreen extends Fragment {
                 transaction.commit();
             }
     });
+
+
+
 
         b1.setOnClickListener(new View.OnClickListener() {
             @Override

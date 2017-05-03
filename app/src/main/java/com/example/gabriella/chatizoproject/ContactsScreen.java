@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.text.InputFilter;
 import android.text.InputType;
@@ -21,6 +22,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import static android.R.attr.fragment;
+
 
 public class ContactsScreen extends Fragment {
     private FloatingActionButton addcontactbutton;
@@ -29,6 +32,8 @@ public class ContactsScreen extends Fragment {
     private ListView lv;
     private ArrayAdapter<Contact> listAdapter;
     private Contact cntact;
+
+
 
     public static ContactsScreen newInstance() {
         ContactsScreen frag = new ContactsScreen();
@@ -113,8 +118,28 @@ public class ContactsScreen extends Fragment {
                 String name = contacts_list.get(position).getNickname1();
                 String idnum = contacts_list.get(position).getId1();
                 Toast.makeText(getActivity().getApplicationContext(), "Name: " + name + " -- ID: " + idnum, Toast.LENGTH_LONG).show();
+
+                Fragment selectedFragment = null;
+                Bundle bundle = new Bundle();
+                bundle.putString("USERID", idnum);
+                //bundle.putString("NNAME", name);
+                selectedFragment = MessagesScreen.newInstance();
+
+                selectedFragment.setArguments(bundle);
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.frame_layout, selectedFragment);
+                transaction.commit();
+
+
+
+
+
+
+
+
             }
         });
+
         return rootview;
     }
 }
